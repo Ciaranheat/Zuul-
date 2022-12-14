@@ -15,15 +15,15 @@ room ::~ room() {
 
 }
 
-string room :: getName() {//gets name for rooms 
+string room :: getName() {
   return name;
 }
 
-string room :: getDescription() { //gets description for the rooms
+string room :: getDescription() {
   return description;
 }
 
-string room :: getExits() {//gets the exits to the starting room and the directions for other rooms
+string room :: get Exits() {
   string e = " ";
 
   if (exitMap.find("North") != exitMap.end())
@@ -41,23 +41,23 @@ string room :: getExits() {//gets the exits to the starting room and the directi
   return e;
 }
 
-string room :: showItems() {//Shows items to the user
+string room :: showItems() {
   return itemList.showItems();
 }
 
-void room :: setItems(int i1, int i2, int i3, int i4, int i5) {//Makes items 
+void room :: setItems(int i1, int i2, int i3, int i4, int i5) {
   itemList.showItems(i1,i2,i3,i4,i5); 
 }
 
-void room :: setName(string newname) {//Sets name
+void room :: setName(string newname) {
   name = newname;
 }
 
-void room :: setDescription(string newdescription) { //Sets description 
+void room :: setDescription(string newdescription) {
   description = newdescription;
 }
 
-void room :: setExits(room* n, room* s, room* e, room* w) { //Sets exit
+void room :: setExit(room* n, room* s, room* e, room* w) {
 
   if (n != NULL)
     exitMap["NORTH"] = n;
@@ -70,7 +70,7 @@ void room :: setExits(room* n, room* s, room* e, room* w) { //Sets exit
   
 }
 
-room* room:: goExit(string newExit) { //Goes to exit and stops someone if there is no exit
+room* room:: goExit(string newExit) {
   if (exitMap.find(newExit) == exitMap.end()) {
     cout << "No exit" << endl;
     return this;
@@ -80,7 +80,7 @@ room* room:: goExit(string newExit) { //Goes to exit and stops someone if there 
   }
 }
 
-void room :: pickupItem(string itemname, item &playerbucket) {//Picks up item if there is one
+void room :: pickupItem(string itemname, item &playerbucket) {
   bool find = false;
   for (int i = 0; i <5; i++) {
     if (itemList.itemName[i] == itemname) {
@@ -94,7 +94,7 @@ void room :: pickupItem(string itemname, item &playerbucket) {//Picks up item if
     }
 }
 
-void room :: dropItem(string itemname, item &playerbucket) {//Drops item if you have it 
+  void room :: dropItem(string itemname, item &playerbucket) {
     bool find = false;
     for (int i = 0; i < 5; i++) {
       if (playerbucket.itemname[i] == itemname) {

@@ -8,17 +8,17 @@ using namespace std;
 class item{
  public :
   item();
-  item~();
+  ~item();
 
-  void inivitems(int, int, int, int, int);
-  string showitems();
-  bool addItem(steing newname);
-  bool deleteitem(string newname);
-  int itemcount();
+  void inivItems(int, int, int, int, int);
+  string showItems();
+  bool addItem(string newname);
+  bool deleteItem(string newname);
+  int itemCount();
 
-  int iteminv[5];
+  int itemInv[5];
 
-  string itemname[5];
+  string itemName[5];
 
 };
 

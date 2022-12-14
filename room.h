@@ -12,7 +12,7 @@ class room {
 
   string getName();
   string getDescription();
-  string getExit();
+  string getExits();
 
   void setName(string);
   void setDescription(string);
