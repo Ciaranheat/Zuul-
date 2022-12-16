@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include "room.h"
-#inlcude "item.h"
+#include "item.h"
 
 using namespace std;
 
@@ -32,6 +32,8 @@ string room :: getExits() {//gets the exits to the starting room and the directi
   if (exitMap.find("SOUTH") != exitMap.end())
     e = e + "SOUTH";
 
+
+
   if (exitMap.find("EAST") != exitMap.end())
     e = e + "EAST";
 
@@ -46,7 +48,7 @@ string room :: showItems() {//Shows items to the user
 }
 
 void room :: setItems(int i1, int i2, int i3, int i4, int i5) {//Makes items 
-  itemList.showItems(i1,i2,i3,i4,i5); 
+  itemList.inivItems(i1,i2,i3,i4,i5); 
 }
 
 void room :: setName(string newname) {//Sets name
@@ -54,6 +56,8 @@ void room :: setName(string newname) {//Sets name
 }
 
 void room :: setDescription(string newdescription) { //Sets description 
+
+
   description = newdescription;
 }
 
@@ -61,11 +65,11 @@ void room :: setExits(room* n, room* s, room* e, room* w) { //Sets exit
 
   if (n != NULL)
     exitMap["NORTH"] = n;
-  if (n != NULL)
+  if (s != NULL)
     exitMap["SOUTH"] = s;
-  if (n != NULL)
+  if (e != NULL)
     exitMap["EAST"] = e;
-  if (n != NULL)
+  if (w != NULL)
     exitMap["WEST"] = w;
   
 }
@@ -97,7 +101,7 @@ void room :: pickupItem(string itemname, item &playerbucket) {//Picks up item if
 void room :: dropItem(string itemname, item &playerbucket) {//Drops item if you have it 
     bool find = false;
     for (int i = 0; i < 5; i++) {
-      if (playerbucket.itemname[i] == itemname) {
+      if (playerbucket.itemName[i] == itemname) {
 	find = true;
 	itemList.addItem(itemList.itemName[i]);
 	playerbucket.deleteItem(itemList.itemName[i]);

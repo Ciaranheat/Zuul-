@@ -1,3 +1,15 @@
+/*
+Ciaran McErlean
+Period 6
+12/16/22
+Zuul project
+Way to win:
+go west then south for first item 
+go back to start then go east then south for next two items
+go bact to start then go north then east for last item 
+go back to start 
+ */
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -5,12 +17,13 @@
 #include "item.h"
 
 using namespace std;
-
+//Sets map and items
 void setMap(vector<room*>* roomList, room* &currentRoom, item &playerBucket);
 void setItem(vector<item*>* itemList);
 
 
 int main() {
+  
   vector<room*>* roomList = new vector<room*>;
   room* currentRoom;
   string input;
@@ -22,7 +35,9 @@ int main() {
 
   setMap(roomList, currentRoom, playerBucket);
 
-  while(moveCount <= 100) {
+  while(moveCount <= 100) {//Sets all the buttons and gets the inputs from user along with ending the game 
+  cout << endl;
+  cout << currentRoom -> getName() << endl;
   cout << currentRoom -> getDescription() << endl;
   cout << "There are exits: " << endl;
   cout << currentRoom -> getExits() << endl;
@@ -32,7 +47,7 @@ int main() {
   cout << "Items in inventory: " << playerBucket.showItems() << endl;
   cout << endl;
 
-  cout << "Where do you want to go? [North, South, West, East]: ";
+  cout << "Where do you want to do? [North, South, West, East, DROP, PICKUP, QUIT]: ";
   cin >> input;
 
   if (input == "PICKUP" || input == "Pickup" || input == "pickup") {
@@ -46,10 +61,6 @@ int main() {
     currentRoom -> dropItem(in, playerBucket);
   }
 
-  if (playerBucket.itemCount() == 5 && currentRoom -> getName() == "Cafetria" && moveCount <= 100) {
-    cout << "Congrats you won!" << endl;
-    exit(0);
-  }
 
   if (input == "QUIT" || input == "Quit" || input == "quit") {
     exit(1);
@@ -59,14 +70,18 @@ int main() {
     currentRoom = currentRoom -> goExit(input);
     moveCount++;
   }
+  if (playerBucket.itemCount() == 5 && currentRoom -> getName() == "Cafetria" && moveCount <= 100) {
+    cout << "Congrats you won!" << endl;
+    exit(0);
+  }
   
 }
 cout << "sorry you took over 100 try's you lost" << endl;
 return 0;
 }
 
-void setMap(vector<room*>* roomList, room* &currentRoom, item &playerBucket) {
-  room* r1 = new room("Cafetria", "You are at the start, the cafetria, you can go any direction");
+void setMap(vector<room*>* roomList, room* &currentRoom, item &playerBucket) {//All the rooms and there names, and descriptions 
+  room* r1 = new room("Cafetria", "The starting room, you can go anywhere");
   roomList -> push_back(r1);
 
   room* r2 = new room("HallWay1", "You are in hall way 1, you can go east for the math class, or north for hall way 5: ");
@@ -111,25 +126,31 @@ void setMap(vector<room*>* roomList, room* &currentRoom, item &playerBucket) {
   room* r15 = new room("CAD", "You are in CAD class, there is no where for you to go: ");
   roomList -> push_back(r15);
 
-  //setting the exits (N,E,S,W)
-
-  r1 -> setExits(r2, r3, r4, r5);
-  r2 -> setExits(r6, r7, r1, NULL);
-  r3 -> setExits(r10, NULL, r11, r1);
+  //setting the exits (N,S,E,W)
+ 
+  r1 -> setExits(r2, r4, r3, r5);
+  r2 -> setExits(r6, r1, r7, NULL);
+  r3 -> setExits(r10, r11, NULL, r1);
   r4 -> setExits(r1, NULL, NULL, NULL);
-  r5 -> setExits(r12, r1, r14, r13);
-  r6 -> setExits(r8, NULL, r5, NULL);
-  r7 -> setExits(NULL, NULL, NULL, r5);
-  r8 -> setExits(NULL, r9, r6, NULL);
+  r5 -> setExits(r12, r14, r1, r13);
+  r6 -> setExits(r8, r5, NULL, NULL);
+  r7 -> setExits(NULL, NULL, NULL, r2);
+  r8 -> setExits(NULL, r6, r9, NULL);
   r9 -> setExits(NULL, NULL, NULL, r8);
-  r10 -> setExits(NULL, NULL, r3, NULL);
+  r10 -> setExits(NULL, r3, NULL, NULL);
   r11 -> setExits(r3, NULL, NULL, NULL);
-  r12 -> setExits(NULL, NULL, r5, NULL);
-  r13 -> setExits(NULL, r5, NULL, NULL);
+  r12 -> setExits(NULL, r5, NULL, NULL);
+  r13 -> setExits(NULL, NULL, r5, NULL);
   r14 -> setExits(r5, NULL, NULL, r15);
-  r15 -> setExits(NULL, r14, NULL, NULL);
+  r15 -> setExits(NULL, NULL, r14, NULL);
 
   //Setting Items
-  
+  r7 -> setItems(1,0,0,0,0);
+  r11 -> setItems(0,0,1,1,0);
+  r14 ->setItems(0,1,0,0,0);
+  playerBucket.inivItems(0,0,0,0,1);
+
+  //sets starting room
+  currentRoom = r1;
 		      
 }
